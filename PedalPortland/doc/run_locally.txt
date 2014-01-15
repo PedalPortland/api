@@ -1,0 +1,20 @@
+Running Api Foundation Locally
+
+Requirements
+	Python2.7 with PostgreSql support
+	virtualenv
+	flask-restful
+
+Create a virtualenv
+	virtualenv venv
+	venv/bin/activate
+
+Running api
+	python api.py
+
+Commands for testing
+	GET the list: curl http://localhost:5000/todos
+	GET a single task: curl http://localhost:5000/todos/<string:todo_id>
+	DELETE a task: curl http://localhost:5000/todos/<string:todo_id> -X DELETE -v
+	ADD a new task: curl http://localhost:5000/todos -d "task= 'write something in here'" -X POST -v
+	UPDATE a task: curl http://localhost:5000/todos/<string:todo_id> task= 'write something in here'" -X PUT -v
