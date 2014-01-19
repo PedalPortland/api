@@ -9,6 +9,9 @@ Create a virtualenv
 	virtualenv venv
 	venv/bin/activate
 
+Installing Flask and Flask-restful
+	After create a virtual environment, using "pip" package to install Flask and Flask-restful
+
 Running api
 	python api.py
 
