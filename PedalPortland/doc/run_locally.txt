@@ -2,8 +2,9 @@ Running Api Foundation Locally
 
 Requirements
 	Python2.7 with PostgreSql support
-	virtualenv
+	flask
 	flask-restful
+	virtualenv
 
 Create a virtualenv
 	virtualenv venv
@@ -11,6 +12,9 @@ Create a virtualenv
 
 Installing Flask and Flask-restful
 	After create a virtual environment, using "pip" package to install Flask and Flask-restful
+	In Linux:
+		To install Flask, you can type: "sudo pip install flask"
+		To install Flask-restful, you can type: "sudo pip install flask-restful"
 
 Running api
 	python api.py
