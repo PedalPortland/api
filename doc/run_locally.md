@@ -34,5 +34,12 @@ will leave the virtual environment
 
 ## Running api
 Once you have the `venv` folder from running `create-env`, and you have activated
-the environment, you can continue starting the api with `python api.py`. `Ctrl-c`
-to stop it.
+the environment, you can continue starting the api with:
+
+`gunicorn -w 4 -b hostname:5001 api:app -D`
+
+* `-w 4` To create 4 threads to handle requests
+* `-b hostname:5001` to bind to the address/port number
+* `-D` to daemonize the process
+
+and use `Ctrl-c` to stop it.
