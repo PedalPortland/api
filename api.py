@@ -9,28 +9,26 @@ from random import randint
 from os import listdir
 from json import dump, load
 from markdown import markdown
+import Secrets
 
 # The locations from which we will be handling flat files of JSON
 # data containing the ride logs
 RIDELOCATIONS = "./rides/"
 
 # Current Version
-APIVERSION = '0.4'
+APIVERSION = '0.3'
 
 # The hostname of the server the API is hosted on
-APIHOSTNAME = '127.0.0.1'
-
-# Port that the API will listen on.
-APIPORT = "5000"
+APIHOSTNAME = Secrets.API_HOSTNAME
 
 # URLSTRING identifies the base for the API's URL
-URLSTRING = 'http://' + APIHOSTNAME + ':' + APIPORT
+URLSTRING = 'http://' + APIHOSTNAME + ':' + str(Secrets.API_PORT)
 
 # Pass the name of the app to flask
-APP = Flask(__name__)
+app = Flask(__name__)
 
 
-@APP.route('/')
+@app.route('/')
 def index():
     """
     Define a simple function for returning useful information about the
@@ -41,7 +39,7 @@ def index():
         return markdown(mark.read(), extensions=['tables'])
 
 
-@APP.errorhandler(404)
+@app.errorhandler(404)
 def not_found(error):
     """
     If the caller attempts to use a URL not specified in the file, they will
@@ -52,19 +50,19 @@ def not_found(error):
 # GET ------------------------------------------------------------
 
 
-@APP.route('/version', methods=['GET'])
+@app.route('/version', methods=['GET'])
 def get_version():
     """ Get request to return the current version of the API """
     return jsonify({'version': str(APIVERSION)})
 
 
-@APP.route('/rides', methods=['GET'])
+@app.route('/rides', methods=['GET'])
 def get_all_rides():
     """ Get all of the known ride IDs """
     return jsonify({'RideIds': listdir(RIDELOCATIONS)})
 
 
-@APP.route('/rides/<string:ride_id>', methods=['GET'])
+@app.route('/rides/<string:ride_id>', methods=['GET'])
 def get_one_ride(ride_id):
     """ Get the information on a single ride using an ID """
     return jsonify(get_ride_by_id(ride_id))
@@ -79,7 +77,7 @@ def get_ride_by_id(ride_id):
 # POST -----------------------------------------------------------
 
 
-@APP.route('/rides', methods=['POST'])
+@app.route('/rides', methods=['POST'])
 def add_ride():
     """
     rideURL: 127.0.0.1:5000/rides/812241
@@ -167,4 +165,4 @@ def gen_number():
 
 
 if __name__ == '__main__':
-    APP.run(debug=True)
+    app.run(host=Secrets.API_HOSTNAME, port=Secrets.API_PORT)
