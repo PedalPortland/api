@@ -5,6 +5,7 @@ Depends
 -------
 * Flask
 * Markdown
+* gunicorn
 
 Commands
 --------
